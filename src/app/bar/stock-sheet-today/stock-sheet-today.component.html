@@ -1,0 +1,72 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> JINA  </th>
+    <td mat-cell *matCellDef="let product"> {{product.name}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="volume">
+    <th mat-header-cell *matHeaderCellDef> UJAZO </th>
+    <td mat-cell *matCellDef="let product"> {{product.volume}}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="remaining">
+    <th mat-header-cell *matHeaderCellDef> MABAKI </th>
+    <td mat-cell *matCellDef="let product"> {{product.remaining}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="transfers_counter">
+    <th mat-header-cell *matHeaderCellDef> ULIZOZIPOKEA </th>
+    <td mat-cell *matCellDef="let product"> {{product.transfers_counter}}</td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef> JUMLA </th>
+    <td mat-cell *matCellDef="let product"> {{product.remaining + product.transfers_counter}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="left">
+    <th mat-header-cell *matHeaderCellDef> SALIO </th>
+    <td mat-cell *matCellDef="let product"> {{( product.remaining + product.transfers_counter ) - product.defective }}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="defective">
+    <th mat-header-cell *matHeaderCellDef> KASORO </th>
+    <td mat-cell *matCellDef="let product"> {{product.defective}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="sales_amount_on_date">
+    <th mat-header-cell *matHeaderCellDef> MAUZO </th>
+    <td mat-cell *matCellDef="let product"> {{product.sales_amount_on_date | currency : ' '}}
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="sales_details_on_date">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let product">
+      <div style="text-align: center;">
+        <button *ngIf="product.sales_amount_on_date > 0"
+                mat-stroked-button color="accent"
+
+                (click)="viewSales(product.sales_details_on_date , (product.name + ' ' +product.volume))" >
+          View Sales </button>
+      </div>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

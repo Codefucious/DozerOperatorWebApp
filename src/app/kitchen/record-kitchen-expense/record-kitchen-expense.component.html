@@ -1,0 +1,44 @@
+<mat-card style="padding: 5px; "  >
+  <div style="text-align: center">
+    <h2>
+      Record New Expense
+    </h2>
+  </div>
+  <br>
+  <mat-card-content >
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>History</mat-label>
+      <mat-select placeholder="Choose ..."
+                  [(ngModel)]="historicalExpense"
+                  [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="historySelected()"
+                  style="width: 100%;">
+        <mat-option value="{{ item.description }}---{{ item.amount }}" *ngFor="let item of history">{{ item.description }}---{{ item.amount | currency : 'Tshs. '}}</mat-option>
+
+      </mat-select>
+      <mat-hint>Choose From History</mat-hint>
+    </mat-form-field>
+    <br><br>
+    <div fxLayout="row">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Expense Name</mat-label>
+        <input [(ngModel)]="description" [ngModelOptions]="{standalone: true}" matInput placeholder="Eg. T1">
+        <mat-hint>Enter The Expense Description</mat-hint>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Cost</mat-label>
+        <input [(ngModel)]="amount" [ngModelOptions]="{standalone: true}" matInput >
+        <mat-hint>Enter The Cost of Expense</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <br><br>
+    <button mat-stroked-button
+            color="primary"
+            style="width: 100%;"
+            (click)="saveExpense()" > <strong>Record Expense</strong> </button>
+    <br><br>
+  </mat-card-content>
+
+</mat-card>

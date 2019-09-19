@@ -1,0 +1,144 @@
+<mat-horizontal-stepper linear="true" #stepper>
+
+  <mat-step label="Select Items">
+    <div fxLayout="row" fxFlexAlign="center">
+      <div fxFlex fxFlexAlign="centre">
+        <mat-card style="padding: 5px; "  >
+          <mat-card-title>Available Items</mat-card-title>
+          <mat-card-content style="height: 400px; overflow-y: scroll;">
+            <mat-grid-list cols="3" rowHeight="110px" gutterSize="10px">
+              <mat-grid-tile *ngFor="let item of all_items " [longPress]="500" (onRelease)= "alertUs(item.id,item.is_shooter,item.shots_count)">
+                <mat-card (click)="addToCart( item.id ) "style="background-color: lightsteelblue;" >
+                  <mat-card-title   style="font-size: 16px;">
+                    {{ item.name }}&nbsp;
+                  </mat-card-title>
+                  <mat-card-subtitle>{{ item.price | currency : 'Tshs. '}}<br> <strong><span *ngIf="item.type==1"> x {{ item.count }}</span></strong></mat-card-subtitle>
+                </mat-card>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+      <div fxFlex fxFlexAlign="centre">
+        <mat-card style="padding: 5px; "  >
+          <mat-card-title>Added To Cart</mat-card-title>
+          <mat-card-content style="height: 400px; overflow-y: scroll;">
+            <mat-grid-list cols="3" rowHeight="110px" gutterSize="10px">
+              <mat-grid-tile *ngFor="let item of cart_items " [longPress]="500" (onRelease)= clearItem(item.id,item.count)>
+                <mat-card (click)="removeFromCart( item.id )" style="background-color: lightpink;">
+                  <mat-card-title  style="font-size: 16px;">
+                    {{ item.name }}&nbsp;<span *ngIf="item.type==1"> x {{ item.count }}</span>
+                  </mat-card-title>
+                  <mat-card-subtitle>{{ item.price | currency : 'Tshs. '}} <br> <strong>{{ item.count }}</strong> </mat-card-subtitle>
+                </mat-card>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row" style="padding: 5px" fxFlexAlign="center">
+      <div fxFlex>
+        <button  mat-raised-button color="primary" (click)="openDialog()">Take Away</button>&nbsp;
+        <button  mat-raised-button color="accent" (click)="openChooseWaiterDialog()">Choose Table</button>
+      </div>
+      <div fxFlexAlign="right">
+        <button  mat-raised-button>
+          <strong>Total:&nbsp;&nbsp;Tshs. {{ cart_total | currency : ' '}} </strong>
+        </button>
+      </div>
+    </div>
+  </mat-step>
+
+
+  <mat-step label="Select Table">
+    <mat-card style="padding: 5px; ">
+      <mat-card-title>Select Table</mat-card-title>
+      <mat-card-content style="height: 400px; overflow-y: scroll;">
+        <mat-grid-list cols="5" rowHeight="130px" gutterSize="10px">
+          <mat-grid-tile *ngFor="let table of tables"
+                         class="mat-elevation-z4"
+                         style="border-radius: 10px; background-color: lightgreen"
+                         (click)="selectTable(table.table_number)">
+            <h2>{{ table.table_number }}</h2>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+    <div fxLayout="row" style="padding: 5px" fxFlexAlign="center">
+      <div fxFlex>
+        <button  mat-raised-button color="primary" (click)="stepper.previous()">Back</button>&nbsp;
+      </div>
+    </div>
+  </mat-step>
+
+
+  <mat-step  label="Confirm Bill" fxLayoutAlign="center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center">
+      <mat-card fxFlex fxFlex="50%" class="mat-elevation-z4">
+        <mat-card-title>Order Details
+          <br><br>
+          <strong>Table: &nbsp;{{ tableNumber }}</strong>
+        </mat-card-title>
+        <mat-card-content style="height: 320px; overflow-y: scroll;">
+          <mat-list>
+            <mat-list-item *ngFor="let item of cart_items ">
+              <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+                <div fxFlex>{{item.name}} x {{ item.count }}</div>
+                <div fxFlex>{{ item.price | currency : 'Tshs. ' }}</div>
+              </div>
+            </mat-list-item>
+
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+    <div fxLayout="row" style="padding: 5px" fxFlexAlign="center">
+      <div fxFlex>
+        <button  mat-raised-button color="primary" (click)="stepper.previous()">Back</button>&nbsp;
+        &nbsp;&nbsp;
+        <button  mat-raised-button >
+          <strong>{{ cart_total | currency : 'Tshs. ' }}</strong>
+        </button>
+        &nbsp;&nbsp;
+        <button  mat-raised-button color="accent" (click)="confirmBill()">Confirm Bill</button>
+        <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
+      </div>
+    </div>
+  </mat-step>
+
+  <mat-step  label="Order Successful" fxLayoutAlign="center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center">
+      <mat-card fxFlex fxFlex="50%" class="mat-elevation-z4">
+        <mat-card-title>Order Details
+          <br><br>
+        </mat-card-title>
+        <mat-card-content style="height: 320px; overflow-y: scroll;">
+          <br><br>
+          <h2>Table: &nbsp;{{ tableNumber }}</h2>
+          <h3>Total : &nbsp; {{ cart_total | currency : 'Tshs. ' }}</h3>
+          <strong>Order Made Successfully!!</strong>
+          <br>
+          <!--<h3>Total : &nbsp; {{ cart_total | currency : 'Tshs. ' }}</h3>-->
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+    <div fxLayout="row" style="padding: 5px" fxFlexAlign="center">
+      <div fxFlex>
+       &nbsp;&nbsp;
+        <button  mat-raised-button >
+          <strong>{{ cart_total | currency : 'Tshs. ' }}</strong>
+        </button>
+        &nbsp;&nbsp;
+        <!--<button mat-button (click)="stepper.reset()">Reset</button>-->
+      </div>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>

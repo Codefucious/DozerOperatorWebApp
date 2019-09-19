@@ -1,0 +1,104 @@
+<mat-toolbar >
+  <div fxLayout="row"  fxFlexAlign="center">
+    <div fxFlex >&nbsp;
+      <button mat-raised-button color="accent" (click)="recordBarExpense()"> New Expense </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<mat-tab-group mat-stretch-tabs headerPosition="below" class="mat-elevation-z4" style="height:100%;">
+  <mat-tab label="Available Drinks" >
+    <h3 fxLayoutAlign="center">Drinks In Stock</h3>
+    <div fxLayoutAlign="center" >
+      <mat-card style="height: 500px;padding: 10px; overflow-y: scroll;">
+        <mat-list fxFlexFill  role="list" style="width:100%">
+          <mat-list-item role="listitem" *ngFor="let item of drinksList "  >
+
+            <mat-list-item >
+              <h2 matLine> {{ item.name }}</h2>
+            </mat-list-item >
+            <mat-list-item >
+              <h2 matLine style="text-align: right;">
+                <strong>{{ item.hand_stock }} pcs</strong>
+              </h2>
+            </mat-list-item>
+            <mat-list-item >
+              <h2 matLine style="text-align: right;">
+                <button *ngIf="!(item.requested === 1)" mat-stroked-button
+                        color="primary"
+                        style="width: 100%;"
+                        (click)="requestRefill(item.product_id)" > <strong>Request Refill</strong> </button>
+                <button *ngIf="(item.requested === 1)" mat-stroked-button
+                        color="accent"
+                        style="width: 100%;"
+                > <strong>Requested</strong> </button>
+              </h2>
+            </mat-list-item>
+
+
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      <span matBadge="{{ selectedCount }}" matBadgeOverlap="false"> Orders &nbsp;</span>
+    </ng-template>
+    <h3 fxLayoutAlign="center">Bar Orders Today</h3>
+    <div fxLayoutAlign="center" >
+      <mat-card style="height: 500px;padding: 10px; overflow-y: scroll;">
+        <mat-list fxFlexFill  role="list" >
+          <mat-list-item role="listitem"  *ngFor="let order of ordersToday " >
+            <mat-list-item >
+              <h2 matLine style="text-align: right;">{{ order.timing | date :'shortTime'}}</h2>
+            </mat-list-item>
+            <mat-list>
+              <mat-list-item *ngFor="let detail of order.order_details " >
+                <h2 matLine> {{ detail.name }} x {{ detail.count }}</h2>
+                <p matLine> {{ detail.price | currency : ' Tshs '}}</p>
+              </mat-list-item >
+            </mat-list >
+            <mat-list-item >
+              <h2 matLine style="text-align: right;">{{ order.total | currency : 'Tshs. ' }}</h2>
+            </mat-list-item>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      <span matBadge="{{ selectedCount }}" matBadgeOverlap="false">Expenses &nbsp;</span>
+    </ng-template>
+    <h3 fxLayoutAlign="center">Bar Expenses Today</h3>
+    <div fxLayoutAlign="center" style="height: 500px;padding: 10px; overflow-y: scroll;">
+      <mat-card style="height: 500px;padding: 10px; overflow-y: scroll;">
+        <mat-list fxFlexFill  role="list" style="width:100%">
+          <mat-list-item role="listitem" *ngFor="let item of expensesToday">
+            <mat-list-item >
+              <h2 matLine><strong> {{ item.description }}</strong></h2>
+              <p matLine> {{ item.timing | date : 'shortTime' }}</p>
+            </mat-list-item >
+            <mat-list-item >
+              <h2 matLine style="text-align: right;"> <i>{{ item.amount | currency : 'Tshs. ' }}</i></h2>
+            </mat-list-item>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template matTabLabel>
+      <span matBadge="{{ selectedCount }}" matBadgeOverlap="false">Today's Stock Sheet &nbsp;</span>
+    </ng-template>
+    <h3 fxLayoutAlign="center">Full Stock Sheet</h3>
+    <div fxLayoutAlign="center" style="height: 500px;padding: 10px; overflow-y: scroll;">
+      <app-stock-sheet-today style="width: 100%;"></app-stock-sheet-today>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>

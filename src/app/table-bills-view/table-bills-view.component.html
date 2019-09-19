@@ -1,0 +1,36 @@
+<h3  fxLayoutAlign="center"> Select Table To Print Bill  </h3>
+<mat-card style="padding: 5px;height: 510px;overflow-y: scroll; "  >
+  <mat-card-content>
+    <mat-grid-list cols="3" rowHeight="210px" gutterSize="10px">
+      <mat-grid-tile *ngFor="let table of tables"
+                     class="mat-elevation-z4"
+                     style="border-radius: 10px; background-color: lightgreen">
+        <div style="padding-bottom: 20px;">
+          <h1 fxLayoutAlign="center">{{table.table_number}}</h1>
+          <p fxLayoutAlign="center">
+            <strong>{{table.handler}}</strong>
+          </p>
+          <p fxLayoutAlign="center">
+            {{table.total_bill_amount | currency : "Tshs. "}}
+          </p>
+          <div fxLayoutAlign="center">
+            <button mat-raised-button
+                    (click)="printBill(table.table_number)"
+                    color="primary">Print Bill</button>&nbsp;
+            <button mat-raised-button
+                    (click)="clearBill(table.table_number)"
+                    color="accent">
+              Clear Bill</button>
+          </div>
+          <div fxLayoutAlign="center" style="padding: 5px;">
+            <button mat-raised-button
+                    (click)="transferBill(table.id)">
+              Transfer Bill</button>
+            <br>
+          </div>
+        </div>
+
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

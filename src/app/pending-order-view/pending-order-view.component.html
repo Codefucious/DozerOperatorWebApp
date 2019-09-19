@@ -1,0 +1,54 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center" style="height: 522px;overflow-y: scroll; padding-top: 5px; padding-bottom: 5px;">
+  <table fxFlex fxFlex="90%" mat-table [dataSource]="PendingOrders" class="mat-elevation-z8" >
+
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="table_number">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Table Number. </th>
+      <td mat-cell *matCellDef="let item"> {{item.table_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="handler">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Handler </th>
+      <td mat-cell *matCellDef="let item"> {{item.handler}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="orders">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Order Details </th>
+      <td mat-cell *matCellDef="let item">
+        <mat-list style="text-align: center;">
+          <mat-list-item *ngFor="let order_item of item.orders " >
+            {{ order_item.name }} x {{ order_item.count }} = {{ order_item.price }}
+          </mat-list-item>
+        </mat-list>
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="total_amount">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Total Amount </th>
+      <td mat-cell *matCellDef="let item"> {{item.total_amount}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="print">
+      <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
+      <td mat-cell *matCellDef="let item">
+        <button  mat-raised-button color="primary"
+        (click)="printPendingOrderTicket(item.table_id , item.orders , item.pending_order_id , item.total_amount , item.handler_id , item.handler)">Print Order Ticket</button>&nbsp;
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+
+
+  </table>
+</div>

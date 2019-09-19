@@ -1,0 +1,37 @@
+<mat-card style="padding: 5px; "  >
+  <div style="text-align: center">
+    <h2>
+      Request Ingredient From Store
+    </h2>
+  </div>
+  <br>
+  <mat-card-content >
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Ingredient Name</mat-label>
+      <mat-select placeholder="Choose An Ingredient"
+                  [(ngModel)]="tableName"
+                  [ngModelOptions]="{standalone: true}"
+                  style="width: 100%;">
+        <mat-option value="option">Green Vodka</mat-option>
+        <mat-option value="option">Green Vodka</mat-option>
+        <mat-option value="option">Green Vodka</mat-option>
+        <mat-option value="option">Green Vodka</mat-option>
+
+      </mat-select>
+      <mat-hint>Choose Which Ingredient Your requesting</mat-hint>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Quantity</mat-label>
+      <input [(ngModel)]="tableName" [ngModelOptions]="{standalone: true}" matInput placeholder="Eg. T1">
+      <mat-hint>Enter The Quantity Requested</mat-hint>
+    </mat-form-field>
+    <br><br>
+    <button mat-stroked-button
+            color="primary"
+            style="width: 100%;"
+            (click)="saveNewTable()" > <strong>Request</strong> </button>
+    <br><br>
+  </mat-card-content>
+
+</mat-card>

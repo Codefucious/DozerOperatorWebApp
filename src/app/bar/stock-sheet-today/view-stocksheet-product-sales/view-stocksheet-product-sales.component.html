@@ -1,0 +1,27 @@
+<mat-card style="padding: 5px; "  >
+  <div style="text-align: center">
+    <h2>
+      {{ data.name }} Product Sales
+    </h2>
+  </div>
+  <br>
+  <mat-card-content >
+
+    <mat-card>
+      <mat-list fxFlexFill  role="list" style="width:100%">
+        <mat-list-item role="listitem" *ngFor="let item of salesToday">
+          <mat-list-item >
+            <h2 matLine><strong> {{ item.description }}</strong></h2>
+            <p matLine> {{ item.timing | date : 'shortTime' }}</p>
+          </mat-list-item >
+          <mat-list-item >
+            <h2 matLine style="text-align: right;"> <i>{{ item.amount | currency : 'Tshs. ' }}</i></h2>
+          </mat-list-item>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+
+  </mat-card-content>
+
+</mat-card>
+

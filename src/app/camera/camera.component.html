@@ -1,0 +1,14 @@
+<div [hidden]="scanned">
+  <zxing-scanner (scanSuccess)="decodedOutput($event)" [torch]="torchEnabled"
+                 [torch]="torchEnabled" (torchCompatible)="onTorchCompatible($event)"
+                 [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']">
+
+  </zxing-scanner>
+  <button *ngIf="torchAvailable$ | async" mat-raised-button color="secondary" (click)="toggleTorch()">TORCH TOGGLE</button>
+</div>
+
+<div [hidden]="!scanned">
+  <button mat-raised-button color="accent" (click)="openTableManagerView()" > Manage Tables</button>
+  <button mat-raised-button color="secondary" (click)="openOrderView()"> Record Order</button>
+</div>
+

@@ -1,0 +1,137 @@
+
+<h1 style="text-align: center; font-family: Ubuntu" > Welcome to Dozer Management System </h1>
+
+<mat-card style="padding: 5px;"  class="mat-elevation-z4" *ngIf="userInfo.unapproved !== 1">
+  <mat-card-content>
+    <mat-grid-list cols="3" rowHeight="200px" gutterSize="10px">
+      <mat-grid-tile *ngIf="userInfo.waiter == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/waiter_app">
+          <h3 style="text-align: center;">
+            Waiter
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center;">
+              Take Orders As A Waiter.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In As Waiter</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.counter == 1 || userInfo.admin == 1">
+        <mat-card  routerLink="/counter">
+          <h3 style="text-align: center;">
+            Counter
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center; width: 100%">
+              Manage your Bar & Restaurant Orders.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In to Counter App</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.kitchen == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/kitchen">
+          <h3 style="text-align: center;">
+            Kitchen
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center;">
+              Manage activities in your Kitchen.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In to  Kitchen App</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.bar == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/bar">
+          <h3 style="text-align: center;">
+            Bar
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center;">
+                Manage activities in your Bar.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In to Bar App</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.manager == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/counter">
+        <h3 style="text-align: center;">
+          Manager
+        </h3>
+        <mat-card-content>
+          <p style="text-align: center;">
+            Manage all activities in your business.
+          </p>
+        </mat-card-content>
+        <mat-card-actions style="text-align: center;">
+          <button mat-raised-button
+                  color="basic">
+            <strong>Log In to Manager App</strong>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.barber == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/counter">
+          <h3 style="text-align: center;">
+            Barbershop
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center;">
+              Manage activities in your Barbershop.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In To Barbershop</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="userInfo.carwash == 1 || userInfo.admin == 1">
+        <mat-card class="mat-elevation-z4" routerLink="/counter">
+          <h3 style="text-align: center;">
+            Car Wash
+          </h3>
+          <mat-card-content>
+            <p style="text-align: center;">
+              Manage activities in your Car Wash.
+            </p>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button
+                    color="basic">
+              <strong>Log In To Car Center</strong>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>
+
+<app-unapproved-view *ngIf="userInfo.unapproved === 1"></app-unapproved-view>

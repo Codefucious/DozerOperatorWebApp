@@ -1,0 +1,77 @@
+<mat-tab-group mat-stretch-tabs headerPosition="below" class="mat-elevation-z4" style="height:100%;">
+  <mat-tab label="Available Items" >
+    <div fxLayout="row" fxFlexAlign="center">
+      <div fxFlex fxFlexAlign="centre">
+        <mat-card style="padding: 5px; "  >
+          <mat-card-content style="height: 540px; overflow-y: scroll;">
+            <mat-grid-list cols="3" rowHeight="110px" gutterSize="10px">
+              <mat-grid-tile *ngFor="let item of all_items ">
+                <mat-card (click)="addToCart( item.id ) "style="background-color: lightsteelblue;text-align: center;">
+                  <mat-card-title   style="font-size: 16px;">
+                    {{ item.name }}&nbsp;
+                  </mat-card-title>
+                  <mat-card-subtitle>{{ item.price | currency : 'Tshs. '}}<br> <strong><span *ngIf="item.type==1"> x {{ item.count }}</span></strong></mat-card-subtitle>
+                </mat-card>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template matTabLabel>
+      <span matBadge="{{ selectedCount }}" matBadgeOverlap="false">Selected &nbsp;</span>
+    </ng-template>
+    <div fxLayout="row" fxFlexAlign="center">
+      <div fxFlex fxFlexAlign="centre">
+        <mat-card style="padding: 5px; "  >
+          <mat-card-content style="height: 540px; overflow-y: scroll;">
+            <mat-grid-list cols="3" rowHeight="110px" gutterSize="10px">
+              <mat-grid-tile *ngFor="let item of cart_items ">
+                <mat-card (click)="removeFromCart( item.id )" style="background-color: lightpink; text-align: center;">
+                  <mat-card-title  style="font-size: 16px;">
+                    {{ item.name }}&nbsp;<span *ngIf="item.type==1"></span>
+                  </mat-card-title>
+                  <mat-card-subtitle>{{ item.price | currency : 'Tshs. '}} <br> <strong style="text-align: center;">{{ item.count }}</strong> </mat-card-subtitle>
+                </mat-card>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Confirm">
+    <div fxFlex fxLayout="row" fxLayoutAlign="center">
+      <mat-card fxFlex class="mat-elevation-z4">
+        <mat-card-title style="text-align: center;">Order Details
+          <br><br>
+          <strong>Table: &nbsp;{{ tableNumber }}</strong>
+        </mat-card-title>
+        <mat-card-content style="height: 420px; overflow-y: scroll; text-align: center;">
+          <mat-list>
+            <mat-list-item *ngFor="let item of cart_items ">
+              <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+                <div fxFlex>{{item.name}} x {{ item.count }}</div>
+                <div fxFlex>{{ item.price | currency : 'Tshs. ' }}</div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+          <br>
+          <button  mat-raised-button >
+            <strong>Total: &nbsp;{{ cart_total | currency : 'Tshs. ' }}</strong>
+          </button>
+          <br><br><br>
+          <button *ngIf="selectedCount > 0"
+                  mat-raised-button
+                  color="primary"
+                  (click)="addToPending()">
+            Add To Pending
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+</mat-tab-group>

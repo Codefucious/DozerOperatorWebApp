@@ -1,0 +1,44 @@
+<mat-tab-group mat-stretch-tabs headerPosition="above" class="mat-elevation-z4" style="height:100%;">
+  <mat-tab label="New Table" >
+    <div fxLayout="row" fxFlexAlign="center">
+      <div fxFlex fxFlexAlign="centre">
+        <mat-card style="padding: 5px; "  >
+          <br>
+          <mat-card-content style="height: 520px; overflow-y: scroll;">
+              <mat-form-field appearance="outline">
+                <mat-label>Table Name</mat-label>
+                <input [(ngModel)]="tableName" [ngModelOptions]="{standalone: true}" matInput placeholder="Eg. T1">
+                <mat-hint>Enter Display Name For This Table</mat-hint>
+              </mat-form-field>
+            <br><br>
+            <button mat-stroked-button
+                    color="primary"
+                    style="width: 100px;"
+                    (click)="saveNewTable()" > <strong>Save</strong> </button>
+          </mat-card-content>
+          <mat-card-footer>
+
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Update Existing">
+    <!--<div fxFlex fxLayout="row" fxLayoutAlign="center">-->
+      <mat-action-list class="mat-elevation-z4"
+                       style="height: 540px; overflow-y: scroll;">
+
+        <div mat-list-item *ngFor="let table of tables">
+          <button mat-stroked-button
+                  color="primary"
+                  (click)="updateTable( table.table_number)"
+                  style="width: 200px;">
+            <strong>{{ table.table_number }}</strong>
+          </button>
+          <br><br>
+        </div>
+
+      </mat-action-list>
+    <!--</div>-->
+  </mat-tab>
+</mat-tab-group>
