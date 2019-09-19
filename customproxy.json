@@ -1,0 +1,9 @@
+{
+  "/api/*": {
+    "target": "http://localhost/DozerAPI/public",
+    "secure": false,
+    "pathRewrite": {"^/api" : ""},
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

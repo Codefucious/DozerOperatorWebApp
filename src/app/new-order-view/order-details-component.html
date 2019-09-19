@@ -1,0 +1,32 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center">
+  <mat-card style="padding-top: 10px;" fxFlex fxFlex="100%" class="mat-elevation-z4">
+    <mat-card-title fxLayoutAlign="center">Order Details
+      <br><br>
+    </mat-card-title>
+    <mat-card-content style="height: 320px; overflow-y: scroll;">
+      <mat-list >
+        <mat-list-item fxLayoutAlign="center"
+                       *ngFor="let item of data.cart_items ">
+          <div fxFlex fxLayout="row">
+            <div fxFlex>{{item.name}} x {{ item.count }} &nbsp;--&nbsp; @{{ item.price | currency : 'Tshs. ' }}</div>
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+    <mat-card-footer>
+      <div fxLayout="row" style="padding: 5px" fxFlexAlign="center">
+        <div fxFlex>
+          <button  mat-raised-button color="primary" (click)="closeDialog()">Back</button>&nbsp;
+          <button  mat-raised-button color="accent" (click)="confirmOrder()">Confirm Order</button>
+        </div>
+        <div fxFlexAlign="right">
+          <button  mat-raised-button>
+            <strong>Total:&nbsp;&nbsp;Tshs. {{ data.total | currency : ' '}} </strong>
+          </button>
+        </div>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+</div>

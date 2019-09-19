@@ -1,0 +1,19 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center">
+  <mat-card style="padding-top: 10px;" fxFlex fxFlex="100%" class="mat-elevation-z4">
+    <mat-card-title fxLayoutAlign="center">Choose Waiter
+      <br><br>
+    </mat-card-title>
+    <mat-card-content style="height: 320px; overflow-y: scroll;">
+      <mat-list >
+        <mat-list-item fxLayoutAlign="center"
+                       *ngFor="let item of waiters">
+          <div fxFlex fxLayout="row">
+            <button fxFlex mat-raised-button color="primary" (click)="selectWaiter(item.id , item.name)">{{item.name}}</button>&nbsp;
+            <!--<div fxFlex>{{item.name}} </div>-->
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>
